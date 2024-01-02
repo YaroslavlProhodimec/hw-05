@@ -11,10 +11,12 @@ usersRouter.get('/',
     async (req: Request, res: Response) => {
         const sortData = {
             searchNameTerm: req.query.searchNameTerm,
+            loginOrEmail: req.query.loginOrEmail,
             sortBy: req.query.sortBy,
             sortDirection: req.query.sortDirection,
             pageNumber: req.query.pageNumber,
             pageSize: req.query.pageSize,
+
         }
 
         const users = await UsersRepository.getAllUsers(sortData)

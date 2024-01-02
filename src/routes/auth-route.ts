@@ -8,7 +8,6 @@ export const authRouter = Router({})
 
 
 authRouter.post('/login',
-    // authLoginValidation(),
     async (req: Request, res: Response) => {
     let {loginOrEmail, password} = req.body
 

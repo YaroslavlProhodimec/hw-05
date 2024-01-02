@@ -14,15 +14,33 @@ export class UsersRepository {
         const pageSize = sortData.pageSize ?? 10
         const pageNumber = sortData.pageNumber ?? 1
 
-        let filter = {}
+        const searchLoginTerm = sortData.loginOrEmail ?? null
+        const searchEmailTerm = sortData.loginOrEmail ?? null
 
-        if (searchNameTerm) {
-            filter = {
-                name: {
-                    $regex: searchNameTerm,
+        let filterLogin = {}
+        let filterEmail = {}
+
+        if (searchLoginTerm) {
+            filterLogin = {
+                login: {
+                    $regex: searchLoginTerm,
                     $options: 'i'
                 }
             }
+        }
+        if (searchEmailTerm) {
+            filterEmail = {
+                email: {
+                    $regex: searchEmailTerm,
+                    $options: 'i'
+                }
+            }
+        }
+        const filter = {
+            $or: [
+                filterLogin,
+                filterEmail,
+            ]
         }
 
         const users: WithId<BlogType>[] = await usersCollection.find(filter)
@@ -49,7 +67,8 @@ export class UsersRepository {
 
         const passwordSalt = await bcrypt.genSalt(10)
         const passwordHash = await this._generateHash(password, passwordSalt)
-
+        console.log(passwordSalt,'passwordSalt')
+        console.log(passwordHash,'passwordHash')
         const newUser = {
             _id: new ObjectId(),
             login:login,
@@ -112,18 +131,23 @@ export class UsersRepository {
                 filterEmail,
             ]
         }
-        const users: any = await usersCollection.find(filter)
+
+        const users: any = await usersCollection.findOne(filter)
+            // .find(filter)
             // .sort(sortBy, sortDirection)
             // .skip((+pageNumber - 1) * +pageSize)
             // .limit(+pageSize)
-            .toArray()
+            // .toArray()
+
+        console.log(users,'users')
 
         if (users.length === 0) {
-
             return false
         }
+
         // const totalCount = await usersCollection
         //     .countDocuments(filter)
+
         console.log(users.passwordSalt,
             'users.passwordSalt')
         // const pageCount = Math.ceil(totalCount / +pageSize)
