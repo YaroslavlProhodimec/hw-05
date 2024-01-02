@@ -60,7 +60,17 @@ export class UsersRepository {
         }
 
         const result = await usersCollection.insertOne(newUser)
-        return result.insertedId.toString()
+        const user = await usersCollection.findOne({_id: result.insertedId})
+        console.log(user,'user')
+        // return result.insertedId.toString()
+        // return {
+        //     createdAt: user.createdAt,
+        //     email: user.email,
+        //     id: user.createdAt,
+        //     createdAt: user.createdAt,
+        //
+        // }
+        return usersMapper(user)
     }
     static async deleteUser(id: any) {
 
