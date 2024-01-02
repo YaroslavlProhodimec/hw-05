@@ -13,9 +13,10 @@ export class UsersRepository {
         const searchNameTerm = sortData.searchNameTerm ?? null
         const pageSize = sortData.pageSize ?? 10
         const pageNumber = sortData.pageNumber ?? 1
-
-        const searchLoginTerm = sortData.loginOrEmail ?? null
-        const searchEmailTerm = sortData.loginOrEmail ?? null
+        // console.log(sortData.searchEmailTerm,'sortData.searchEmailTerm ')
+        // console.log(sortData.searchLoginTerm,'sortData.searchLoginTerm ')
+        const searchLoginTerm = sortData.searchLoginTerm ?? null
+        const searchEmailTerm = sortData.searchEmailTerm ?? null
 
         let filterLogin = {}
         let filterEmail = {}
