@@ -7,7 +7,9 @@ import {UsersRepository} from "../repositories/users-repository";
 export const authRouter = Router({})
 
 
-authRouter.post('/login', authLoginValidation(), async (req: Request, res: Response) => {
+authRouter.post('/login',
+    // authLoginValidation(),
+    async (req: Request, res: Response) => {
     let {loginOrEmail, password} = req.body
 
     const checkResult = await UsersRepository.checkCredentials({loginOrEmail, password})

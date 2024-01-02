@@ -3,7 +3,6 @@ import {Request, Response, Router} from "express";
 import {HTTP_STATUSES} from "../utils/common";
 import {userValidation} from "../validators/users-validator";
 import {UsersRepository} from "../repositories/users-repository";
-import {BlogRepository} from "../repositories/blog-repository";
 
 export const usersRouter = Router({})
 
