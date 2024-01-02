@@ -141,7 +141,7 @@ export class UsersRepository {
 
         console.log(users,'users')
 
-        if (users.length === 0) {
+        if (!users) {
             return false
         }
 
